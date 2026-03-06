@@ -1,0 +1,119 @@
+
+.main-link-div {
+    margin-top: 50px;
+}
+.img-home {
+  display: grid;
+  justify-content: end; /* Align items to the right */
+  align-items: end;     /* Align items to the bottom */
+}
+
+/* Home Button Style Begin */
+.btn-applicant {
+  background: #F2F2F2;
+}
+	.btn-employer {
+  background: #000 !important;
+  color: #FFF !important;
+  transition: box-shadow 0.4s ease, transform 0.3s ease;
+}
+.btn-applicant:hover {
+  /* box-shadow: 0 0 20px rgba(211, 211, 211, 0.9); */
+  box-shadow: 0 0 15px rgba(211, 211, 211, 0.7), 0 0 30px rgba(211, 211, 211, 0.5);
+  transform: translateY(-2px);                        /* slight lift effect */
+}
+.btn-employer:hover {
+  /* box-shadow: 0 0 20px rgba(211, 211, 211, 0.9); */
+  box-shadow: 0 0 15px rgba(211, 211, 211, 0.7), 0 0 30px rgba(211, 211, 211, 0.5);
+  transform: translateY(-2px);                        /* slight lift effect */
+}
+/* Home Button Style End */
+.img-logo {
+  max-width: 35%;
+  height: 35%;
+  margin-left: 100px;
+}
+.contact-number{
+  font-size: 16px !important; 
+  text-align:center !important;
+}
+.top-logo {
+  display: flex;
+  justify-content: center; /* horizontal center */
+  align-items: center;     /* vertical center */
+}
+.menu {
+  position: sticky;
+  top: 0;                 /* stick to the top */
+  background-color: #fff; /* background color */
+  z-index: 1000;          /* stay above other elements */
+}
+
+/* Sticky Button */
+.sticky-btn {
+    position: fixed;
+    bottom: 50px;       /* distance from bottom */
+    right: 20px;        /* distance from right */
+    padding: 12px 25px;
+    background-color: #000;
+    color: #fff;
+    border-radius: 50px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 9999;      /* stays above all elements */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.sticky-btn:hover {
+	box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+	border: 1px solid #000;
+	border-color: #000;
+    background-color: #FFFF;
+	color: #000;
+}
+/* Round Link Button Style Begin */
+
+/* .round-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: #C50;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.round-link:hover {
+  background-color: #FFF;
+  transform: scale(1.05);
+}
+
+.round-link-applicant {
+  margin-left: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: #FFA500;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.round-link-applicant:hover {
+  background-color: #FFF;
+  transform: scale(1.05);
+} */
+
+/* Round Link Button Style End */

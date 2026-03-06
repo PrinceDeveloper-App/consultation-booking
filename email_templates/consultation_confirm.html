@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Consultation Booking Confirmation</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+      .email-container {
+        max-width: 600px;
+        margin: 30px auto;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+      .header {
+        background-color: #000;
+        color: #ffffff;
+        text-align: center;
+        padding: 20px;
+        font-size: 22px;
+        font-weight: bold;
+      }
+      .content {
+        padding: 25px;
+        color: #333333;
+        line-height: 1.6;
+        font-size: 16px;
+      }
+      .content h3 {
+        color: #0d6efd;
+        margin-bottom: 10px;
+      }
+      .details {
+        background-color: #f8f9fa;
+        border: 1px solid #e0e0e0;
+        padding: 15px;
+        border-radius: 5px;
+        margin-top: 10px;
+      }
+      .details p {
+        margin: 5px 0;
+      }
+      .note {
+        font-size: 14px;
+        color: #666666;
+        margin-top: 15px;
+        border-left: 3px solid #000;
+        padding-left: 10px;
+      }
+      .footer {
+        text-align: center;
+        font-size: 14px;
+        color: #999999;
+        padding: 15px;
+        border-top: 1px solid #eeeeee;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="header">Consultation Confirmed</div>
+
+      <div class="content">
+        <p>Thank you — your <strong>free consultation</strong> is booked.</p>
+        <p>Your booking details are as follows:</p>
+
+        <div class="details">
+          <p><strong>Consultation Date:</strong> 13-11-2025</p>
+          <p><strong>Consultation Time:</strong> 10:30 AM</p>
+        </div>
+
+        <div class="note">
+          <p>
+            <strong>Note:</strong> The appointment date and time are based on
+            <strong>Mountain Time (MT) – Alberta, Canada</strong>. Please be
+            available for the consultation according to your local time zone.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer">
+        © <span id="year"></span> <a href="https://ikic.ca/">IKIC</a>. All
+        rights reserved.
+      </div>
+    </div>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

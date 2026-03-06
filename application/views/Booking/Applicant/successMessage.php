@@ -1,0 +1,15 @@
+<!-- Page Wrapper -->
+<section class="page-wrapper success-msg">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="block text-center">
+        	<i class="tf-ion-android-checkmark-circle"></i>
+          <h2 class="text-center">Thank you! For your payment</h2>
+          <p style="text-align: center;text-align-last: unset;">A confirmation email has been sent to you with the appointment details. The payment invoice is attached to the email.</p>
+          <!-- <a href="shop.html" class="btn btn-main mt-20">Continue Shopping</a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section><!-- /.page-warpper -->

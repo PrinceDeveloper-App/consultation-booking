@@ -1,0 +1,33 @@
+ /* Grid CSS */
+    #grid {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 50px;
+    }
+
+    .item {
+        background: #e0e0e0;
+        padding: 20px;
+        text-align: center;
+        border-radius: 8px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .ui-selected {
+        background: #4a90e2 !important;
+        color: white;
+        font-weight: bold;
+    }
+
+    .no-select {
+        user-select: none;
+    }
+
+    .slot-info {
+        font-size: 0.7em;
+        display: block;
+        color: #007bff;
+    }

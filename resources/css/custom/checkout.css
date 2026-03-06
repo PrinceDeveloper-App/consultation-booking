@@ -1,0 +1,113 @@
+/* Payment box */
+.payment {
+  border: 2px solid #f2f2f2;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.payment-tab-trigger {
+  padding: 0px 20px;
+}
+.media {
+    border-style: solid;
+  border-color: #dedede;
+  border-width: 0px 0 1px 0;
+  padding-bottom: 10px;
+}
+.payment-tab.payment-tab-active {
+  max-height: 400px;
+  background: #fff;
+}
+.payment-tab:first-of-type {
+  border-radius: 4px 4px 0 0;
+}
+.payment-tab {
+  background: #f2f2f2;
+  box-sizing: border-box;
+  max-height: 60px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s 0s ease-in-out;
+  width: 100%;
+}
+
+.payment-tab-trigger > input {
+  position: absolute;
+  visibility: hidden;
+}
+input[type="radio"] {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.payment-tab-trigger > label {
+  cursor: pointer;
+  display: block;
+  position: relative;
+  top: 0;
+  padding: 14px 0;
+  top: 3px;
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+.payment-tab-trigger > label::after {
+  background: #fff;
+    background-color: rgb(255, 255, 255);
+  border-radius: 100%;
+  content: "";
+  display: inline-block;
+  position: absolute;
+  left: 5px;
+  top: 22px;
+  width: 8px;
+  height: 8px;
+  transition: 0.2s;
+  transform: scale(0);
+}
+
+.payment-logo {
+  height: 24px;
+  position: absolute;
+  right: 19px;
+  top: 18px;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.payment-tab.payment-tab-active .payment-tab-content {
+  visibility: visible;
+  opacity: 1;
+}
+
+.payment-tab-content {
+  padding: 0 20px 20px 20px;
+  background-color: #fff;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+}
+
+.card-label > input {
+  box-sizing: border-box;
+  display: block;
+  height: 51px;
+  margin: 14px auto 5px;
+  padding: 5px 15px 0 15px;
+  transition: border-color 0.3s;
+  width: 100%;
+  border: 1px solid #dbdbdb;
+  background-color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.06);
+  box-shadow: none;
+  padding: 15px 0;
+  border: none;
+    border-bottom-width: medium;
+    border-bottom-style: none;
+    border-bottom-color: currentcolor;
+  border-bottom: 1px solid #e0e0e0;
+  border-radius: 0;
+}

@@ -1,0 +1,102 @@
+/* Date Picker CSS */
+    #datepicker-container {
+        width: 100%;
+        margin: 50px auto;
+    }
+
+    /* 🌈 Datepicker background and border */
+    .ui-datepicker {
+        width: 100%;
+        background: #ffffff;
+        border: 2px solid #4a90e2;
+        border-radius: 12px;
+        padding: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 🗓️ Header (month & year) */
+    .ui-datepicker-header {
+        background: #4a90e2;
+        color: white;
+        border-radius: 10px 10px 0 0;
+        padding: 8px 0;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    /* 🔄 Navigation arrows */
+    .ui-datepicker-prev,
+    .ui-datepicker-next {
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+    }
+
+    /* 📆 Day names row */
+    .ui-datepicker thead {
+        background: #f3f7ff;
+        color: #4a90e2;
+        font-weight: bold;
+    }
+
+    /* 📅 Day cells */
+    .ui-datepicker td a {
+        text-align: center;
+        padding: 12px;
+        border-radius: 8px;
+        color: #333;
+        text-decoration: none;
+        display: block;
+        transition: background 0.3s;
+    }
+
+    /* Hover effect */
+    .ui-datepicker td a:hover {
+        background: #eaf2ff;
+    }
+
+    /* Selected day */
+    .ui-datepicker-current-day a {
+        background: #4a90e2 !important;
+        color: white !important;
+        font-weight: bold;
+    }
+
+    /* Disabled days */
+    .ui-state-disabled {
+        opacity: 0.4;
+        pointer-events: none;
+    }
+
+    .btn-round-full {
+        background: #fff;
+        color: #000;
+        border: 1px solid #000;
+    }
+/* style for the date cell slot display */
+    .ui-datepicker-calendar td {
+        position: relative;
+        vertical-align: top;
+        height: 60px;
+        width: 60px;
+        text-align: center;
+        padding: 4px;
+    }
+
+    .ui-datepicker-calendar td .slot-info {
+        text-align: center;
+        display: block;
+        font-size: 11px;
+        color: #006600;
+        margin-top: -18px;
+    }
+
+    .ui-datepicker-calendar td.no-slot a {
+        color: #aaa !important;
+    }
+
+    .ui-datepicker-calendar td.has-slot a {
+        font-weight: bold;
+        color: #006600 !important;
+    }
