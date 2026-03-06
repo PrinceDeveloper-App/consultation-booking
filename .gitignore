@@ -1,9 +1,12 @@
 .DS_Store
 
 stripe-php/
+.env
 
 application/cache/*
 !application/cache/index.html
+
+application/controllers/Copy.php
 
 application/logs/*
 !application/logs/index.html
