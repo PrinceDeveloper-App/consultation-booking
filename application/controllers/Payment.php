@@ -1,46 +1,31 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-//require_once('vendor/autoload.php');
+/**
+ * Standalone payment processing endpoint.
+ */
+class Payment extends MY_Controller
+{
+    public function charge()
+    {
+        $this->load->library('form_validation');
 
-class Payment extends CI_Controller {
+        $this->form_validation->set_rules('payment_method', 'Payment Method', 'required|trim');
 
-    function __construct()
-	{
-		parent::__construct();
-		$this->load->helper('url');
-		$this->load->helper('form');
-		$this->load->library('email');
-		$this->load->library('calendar');
-		$this->load->library('stripe_lib');
-		//$this->load->library('encrypt'); 
-		$this->load->helper(array('cookie', 'url'));
-		$this->load->model('Consultation_model');
-		$this->load->model('Invoice_model');
-		//$this->load->library('user_agent');
-		$this->load->database();
-	}
+        if ($this->form_validation->run() === FALSE) {
+            $this->json_error('Payment method is required.');
+            return;
+        }
 
-    public function charge() {
+        $payment_method = $this->post('payment_method');
 
-        \Stripe\Stripe::setApiKey("");
-        //$data = $this->input->post();
-        $payment_method = $this->input->post('payment_method');
-        $amount = 1000; // ₹10.00 → 1000 paise (Stripe uses smallest currency unit)
+        $this->load->library('payment_service');
+        $result = $this->payment_service->charge('', $payment_method, 10.00);
 
-        try {
-            // 1. Create PaymentIntent
-            $intent = \Stripe\PaymentIntent::create([
-                'amount' => $amount,
-                'currency' => 'cad',
-                'payment_method' => $payment_method,
-                'confirmation_method' => 'manual',
-                'confirm' => true,
-            ]);
-
-            echo json_encode(["status" => "success", "message" => "Payment successful!"]);
-        } catch (\Exception $e) {
-            echo json_encode(["status" => "error", "message" => $e->getMessage()]);
+        if ($result['success']) {
+            $this->json_success('Payment successful!');
+        } else {
+            $this->json_error($result['error'] ?: 'Payment failed.');
         }
     }
 }

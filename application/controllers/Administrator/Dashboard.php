@@ -1,30 +1,16 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller
+/**
+ * Admin dashboard controller. Requires authentication via Admin_Controller.
+ */
+class Dashboard extends Admin_Controller
 {
-	function __construct()
-	{
-		parent::__construct();
-		$this->load->helper('url');
-		$this->load->helper('form');
-		$this->load->library('email');
-		//$this->load->library('encrypt'); 
-		$this->load->helper(array('cookie', 'url'));
-		//$this->load->model('Homepage_model');
-		//$this->load->library('user_agent');
-		$this->load->database();
-	}
-
-	public function index()
-	{
-		$user_id = $this->session->userdata('user_id');
-		if ($user_id) {
-			$data['pageid'] = "dash";
-			$data['breadcrumb'] = "Dashboard";
-			$this->load->view('admin/dashboard', $data);
-		} else {
-			redirect(base_url());
-		}
-	}
+    public function index()
+    {
+        $this->load->view('admin/dashboard', [
+            'pageid'     => 'dash',
+            'breadcrumb' => 'Dashboard',
+        ]);
+    }
 }
