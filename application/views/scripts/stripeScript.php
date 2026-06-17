@@ -3,7 +3,7 @@
 <script>
     // Create an instance of the Stripe object
     // Set your publishable API key
-    var stripe = Stripe('');
+    var stripe = Stripe('<?php echo env("STRIPE_PUBLISHABLE_KEY", ""); ?>');
 
     // Create an instance of elements
     var elements = stripe.elements();

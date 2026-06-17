@@ -1,29 +1,29 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * Employer scheduling data access for admin dashboard.
+ */
 class Schedullingmodel extends CI_Model
 {
+    protected $slots_table = 'emp_slots';
+    protected $times_table = 'a_times';
+
+    /**
+     * @param string $current_date Date in Y-m-d format
+     * @return array|null
+     */
     public function getSchedules($current_date)
     {
-        // $query = $this->db->get('schedulling_tb');
-        // return $query->result_array();
-        
-        $query = $this->db->get_where('emp_slots', ['date' => $current_date]);
-        //echo $this->db->last_query();
-        //die();
-
-        if ($query->num_rows() > 0) {
-            //$result = $query->row();
-            return $query->result_array();
-        } 
-        // else {
-        //     $query = $this->db->get_where('slots', ['date' => '0000-00-00']);
-        //     return $query->result_array();
-        // }
-
-        //$result = $query->result();
+        $query = $this->db->get_where($this->slots_table, ['date' => $current_date]);
+        return ($query->num_rows() > 0) ? $query->result_array() : null;
     }
+
+    /**
+     * @return array Available time options
+     */
     public function getTimes()
     {
-         $query = $this->db->get('a_times');
-         return $query->result_array();
+        return $this->db->get($this->times_table)->result_array();
     }
 }

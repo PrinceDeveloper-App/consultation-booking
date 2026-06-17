@@ -1,77 +1,44 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Applicant extends CI_Controller {
-      function __construct(){
-			parent::__construct();	
-			$this->load->helper('url');	
-			$this->load->helper('form');
-			$this->load->library('email');
-			//$this->load->library('encrypt'); 
-			$this->load->helper(array('cookie', 'url'));
-			//$this->load->model('Homepage_model');
-			//$this->load->library('user_agent');
-			$this->load->database();
-	  }
-	
-	public function tfwProgrammes()
-	{
-		
-		$data['pageid']="services";
-        $data['breadcrumb'] = "services";
-        $data['breadcrumb_sub'] = "TFW Programes";
-        $data['pagename'] = "Service For Applicants";
-		$data['sticky_button'] = "sticky";
-		$this->load->view('Service/Applicant/tfwProgrames',$data); 
-		
-		
-	}
+/**
+ * Applicant service pages (TFW, Visa, Student, PR, Family Sponsorship).
+ */
+class Applicant extends MY_Controller
+{
+    private function render_service($view, $breadcrumb_sub)
+    {
+        $this->load->view('Service/Applicant/' . $view, [
+            'pageid'         => 'services',
+            'breadcrumb'     => 'services',
+            'breadcrumb_sub' => $breadcrumb_sub,
+            'pagename'       => 'Service For Applicants',
+            'sticky_button'  => 'sticky',
+        ]);
+    }
+
+    public function tfwProgrammes()
+    {
+        $this->render_service('tfwProgrames', 'TFW Programes');
+    }
+
     public function visitorVisa()
-	{
-		
-		$data['pageid']="services";
-        $data['breadcrumb'] = "services";
-        $data['breadcrumb_sub'] = "Visitor Visa & Temporary Resident Visa";
-        $data['pagename'] = "Service For Applicants";
-		$data['sticky_button'] = "sticky";
-		$this->load->view('Service/Applicant/trvProgrames',$data); 
-		
-		
-	}
+    {
+        $this->render_service('trvProgrames', 'Visitor Visa & Temporary Resident Visa');
+    }
+
     public function studentVisa()
-	{
-		
-		$data['pageid']="services";
-        $data['breadcrumb'] = "services";
-        $data['breadcrumb_sub'] = "Study In Canada";
-        $data['pagename'] = "Service For Applicants";
-		$data['sticky_button'] = "sticky";
-		$this->load->view('Service/Applicant/studentVisa',$data); 
-		
-		
-	}
+    {
+        $this->render_service('studentVisa', 'Study In Canada');
+    }
+
     public function permanentResidency()
-	{
-		
-		$data['pageid']="services";
-        $data['breadcrumb'] = "services";
-        $data['breadcrumb_sub'] = "PR & PNP";
-        $data['pagename'] = "Service For Applicants";
-		$data['sticky_button'] = "sticky";
-		$this->load->view('Service/Applicant/permanentResidency',$data); 
-		
-		
-	}
+    {
+        $this->render_service('permanentResidency', 'PR & PNP');
+    }
+
     public function familySponsorship()
-	{
-		
-		$data['pageid']="services";
-        $data['breadcrumb'] = "services";
-        $data['breadcrumb_sub'] = "Family Sponsorship Programs";
-        $data['pagename'] = "Service For Applicants";
-		$data['sticky_button'] = "sticky";
-		$this->load->view('Service/Applicant/familySponsorship',$data); 
-		
-		
-	}
+    {
+        $this->render_service('familySponsorship', 'Family Sponsorship Programs');
+    }
 }

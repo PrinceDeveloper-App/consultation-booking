@@ -1,75 +1,106 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Consolidated cron controller for all scheduled slot cleanup tasks.
+ * Endpoints should be called via server cron jobs with auth token.
+ */
 class Cron extends CI_Controller
 {
-
-    public function update_slots_based_on_mt()
+    public function __construct()
     {
-        date_default_timezone_set('America/Edmonton'); // Mountain Time
-        $today = date("Y-m-d");
+        parent::__construct();
+        $this->load->library('booking_service');
+    }
 
-        
-        $currentMT = date("h:i A"); // example: 12:34 PM
-
-        // 1. Fetch all rows that contain slot times
-        $this->db->where('date', $today);
-        $slots = $this->db->get('slots')->result();
-
-        foreach ($slots as $row) {
-
-            // Convert DB string to array
-            $slotTimes = json_decode($row->slot_times, true);
-            if (!is_array($slotTimes)) continue;
-
-            $updatedSlots = [];
-
-            foreach ($slotTimes as $time) {
-
-                // Compare each slot with MT time
-                $slotTimestamp   = strtotime($time);
-                $currentTimestamp = strtotime($currentMT);
-
-                if ($slotTimestamp > $currentTimestamp) {
-                    // keep future slots
-                    $updatedSlots[] = $time;
-                }
-            }
-
-            // Update DB with remaining future slots
-            $this->db->where('id', $row->id);
-            $this->db->update('slots', [
-                'slot_times' => json_encode($updatedSlots)
-            ]);
+    /**
+     * Validates the cron auth token from query string or CLI mode.
+     */
+    private function authorize()
+    {
+        if (php_sapi_name() === 'cli') {
+            return true;
         }
 
+        $token = $this->input->get('token');
+        $expected = env('CRON_AUTH_TOKEN', '');
+
+        if (empty($expected) || $token !== $expected) {
+            $this->output
+                ->set_status_header(403)
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['status' => 'error', 'message' => 'Unauthorized']));
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Removes past time slots for today (applicants) based on Mountain Time.
+     */
+    public function cleanup_applicant_slots()
+    {
+        if (!$this->authorize()) return;
+
+        $this->booking_service->cleanup_past_slots('slots');
+
         echo json_encode([
-            'status' => 'success',
-            'message' => 'Past time slots removed based on Mountain Time.'
+            'status'  => 'success',
+            'message' => 'Past applicant time slots removed based on Mountain Time.',
         ]);
     }
-     public function delete_expired_rows()
+
+    /**
+     * Removes past time slots for today (employers) based on Mountain Time.
+     */
+    public function cleanup_employer_slots()
     {
-        // Prevent direct browser access if you want
-        // if (php_sapi_name() !== 'cli') exit('CLI only.');
-        date_default_timezone_set('America/Edmonton'); // Mountain Time
-        $today = date('Y-m-d');  // Today in Y-m-d
+        if (!$this->authorize()) return;
 
-        $this->db->where('date', $today);
-        $this->db->delete('slots'); // replace table name
+        $this->booking_service->cleanup_past_slots('emp_slots');
 
-        echo "Rows deleted for date = " . $today;
+        echo json_encode([
+            'status'  => 'success',
+            'message' => 'Past employer time slots removed based on Mountain Time.',
+        ]);
     }
-    public function delete_emp_expired_rows()
+
+    /**
+     * Deletes all expired applicant slot rows for today.
+     */
+    public function delete_expired_applicant()
     {
-        // Prevent direct browser access if you want
-        // if (php_sapi_name() !== 'cli') exit('CLI only.');
-        date_default_timezone_set('America/Edmonton'); // Mountain Time
-        $today = date('Y-m-d');  // Today in Y-m-d
+        if (!$this->authorize()) return;
 
-        $this->db->where('date', $today);
-        $this->db->delete('emp_slots'); // replace table name
+        $this->booking_service->delete_expired_rows('slots');
+        echo json_encode(['status' => 'success', 'message' => 'Expired applicant slots deleted.']);
+    }
 
-        echo "Rows deleted for date = " . $today;
+    /**
+     * Deletes all expired employer slot rows for today.
+     */
+    public function delete_expired_employer()
+    {
+        if (!$this->authorize()) return;
+
+        $this->booking_service->delete_expired_rows('emp_slots');
+        echo json_encode(['status' => 'success', 'message' => 'Expired employer slots deleted.']);
+    }
+
+    /**
+     * Runs all cleanup tasks at once (convenience endpoint).
+     */
+    public function run_all()
+    {
+        if (!$this->authorize()) return;
+
+        $this->booking_service->cleanup_past_slots('slots');
+        $this->booking_service->cleanup_past_slots('emp_slots');
+
+        echo json_encode([
+            'status'  => 'success',
+            'message' => 'All slot cleanup tasks completed.',
+        ]);
     }
 }

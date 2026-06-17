@@ -1,77 +1,44 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Employer extends CI_Controller {
-      function __construct(){
-			parent::__construct();	
-			$this->load->helper('url');	
-			$this->load->helper('form');
-			$this->load->library('email');
-			//$this->load->library('encrypt'); 
-			$this->load->helper(array('cookie', 'url'));
-			//$this->load->model('Homepage_model');
-			//$this->load->library('user_agent');
-			$this->load->database();
-	  }
-	
-	public function lmiaApplication()
-	{
-		
-		$data['pageid']="services";
-        $data['breadcrumb'] = "services";
-        $data['breadcrumb_sub'] = "LMIA Application";
-        $data['pagename'] = "Service For Employers";
-		$data['sticky_button'] = "sticky";
-		$this->load->view('Service/Employer/lmiaApplication',$data); 
-		
-		
-	}
+/**
+ * Employer service pages (LMIA, Work Permit, Francophone, AIP, TFW).
+ */
+class Employer extends MY_Controller
+{
+    private function render_service($view, $breadcrumb_sub)
+    {
+        $this->load->view('Service/Employer/' . $view, [
+            'pageid'         => 'services',
+            'breadcrumb'     => 'services',
+            'breadcrumb_sub' => $breadcrumb_sub,
+            'pagename'       => 'Service For Employers',
+            'sticky_button'  => 'sticky',
+        ]);
+    }
+
+    public function lmiaApplication()
+    {
+        $this->render_service('lmiaApplication', 'LMIA Application');
+    }
+
     public function workPermitServices()
-	{
-		
-		$data['pageid']="services";
-        $data['breadcrumb'] = "services";
-        $data['breadcrumb_sub'] = "Work Permit Services";
-        $data['pagename'] = "Service For Employers";
-		$data['sticky_button'] = "sticky";
-		$this->load->view('Service/Employer/workPermitServices',$data); 
-		
-		
-	}
+    {
+        $this->render_service('workPermitServices', 'Work Permit Services');
+    }
+
     public function francophoneMobility()
-	{
-		
-		$data['pageid']="services";
-        $data['breadcrumb'] = "services";
-        $data['breadcrumb_sub'] = "Francophone Mobility Work Permit";
-        $data['pagename'] = "Service For Employers";
-		$data['sticky_button'] = "sticky";
-		$this->load->view('Service/Employer/francophoneMobility',$data); 
-		
-		
-	}
+    {
+        $this->render_service('francophoneMobility', 'Francophone Mobility Work Permit');
+    }
+
     public function aipDesignations()
-	{
-		
-		$data['pageid']="services";
-        $data['breadcrumb'] = "services";
-        $data['breadcrumb_sub'] = "Atlantic Immigration Program (AIP) Designations";
-        $data['pagename'] = "Service For Employers";
-		$data['sticky_button'] = "sticky";
-		$this->load->view('Service/Employer/aipDesignations',$data); 
-		
-		
-	}
+    {
+        $this->render_service('aipDesignations', 'Atlantic Immigration Program (AIP) Designations');
+    }
+
     public function tfwService()
-	{
-		
-		$data['pageid']="services";
-        $data['breadcrumb'] = "services";
-        $data['breadcrumb_sub'] = "TFW & Workforce Management Service";
-        $data['pagename'] = "Service For Employers";
-		$data['sticky_button'] = "sticky";
-		$this->load->view('Service/Employer/tfwService',$data); 
-		
-		
-	}
+    {
+        $this->render_service('tfwService', 'TFW & Workforce Management Service');
+    }
 }

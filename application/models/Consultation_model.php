@@ -1,35 +1,24 @@
 <?php
-class Consultation_model extends CI_Model
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+require_once APPPATH . 'models/Booking_model.php';
+
+/**
+ * Handles applicant booking data access.
+ */
+class Consultation_model extends Booking_model
 {
-    public function getSchedules($current_date)
+    protected $slots_table       = 'slots';
+    protected $appointment_table = 'appointment_data';
+    protected $booking_table     = 'appointment_slotes';
+
+    /**
+     * @param array $data Payment transaction data
+     * @return int Insert ID
+     */
+    public function insertOrder($data)
     {
-        // $query = $this->db->get('schedulling_tb');
-        // return $query->result_array();
-        
-        $query = $this->db->get_where('slots', ['date' => $current_date]);
-        //echo $this->db->last_query();
-        //die();
-
-        if ($query->num_rows() > 0) {
-            //$result = $query->row();
-            return $query->result_array();
-        } 
-
-        //$result = $query->result();
+        $this->db->insert('stripe_payments', $data);
+        return $this->db->insert_id();
     }
-    public function insertOrder($where_arr='')
-	{
-		$query=$this->db->insert('stripe_payments',$where_arr);
-		return $this->db->insert_id();
-	}
-    public function insertAppointmentData($where_arr='')
-	{
-		$query=$this->db->insert('appointment_data',$where_arr);
-		return $this->db->insert_id();
-	}
-    public function insertbookingData($where_arr='')
-	{
-		$query=$this->db->insert('appointment_slotes',$where_arr);
-		//return $this->db->insert_id();
-	}
 }

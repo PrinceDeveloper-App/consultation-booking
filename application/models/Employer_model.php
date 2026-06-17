@@ -1,30 +1,14 @@
 <?php
-class Employer_model extends CI_Model
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+require_once APPPATH . 'models/Booking_model.php';
+
+/**
+ * Handles employer booking data access.
+ */
+class Employer_model extends Booking_model
 {
-    public function getSchedules($current_date)
-    {
-        // $query = $this->db->get('schedulling_tb');
-        // return $query->result_array();
-        
-        $query = $this->db->get_where('emp_slots', ['date' => $current_date]);
-        //echo $this->db->last_query();
-        //die();
-
-        if ($query->num_rows() > 0) {
-            //$result = $query->row();
-            return $query->result_array();
-        }
-
-        //$result = $query->result();
-    }
-    public function insertAppointmentData($where_arr='')
-	{
-		$query=$this->db->insert('emp_appointment_data',$where_arr);
-		return $this->db->insert_id();
-	}
-    public function insertbookingData($where_arr='')
-	{
-		$query=$this->db->insert('emp_appointment_slotes',$where_arr);
-		//return $this->db->insert_id();
-	}
+    protected $slots_table       = 'emp_slots';
+    protected $appointment_table = 'emp_appointment_data';
+    protected $booking_table     = 'emp_appointment_slotes';
 }

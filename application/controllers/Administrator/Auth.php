@@ -1,46 +1,63 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Auth extends CI_Controller {
-      function __construct(){
-			parent::__construct();	
-			$this->load->helper('url');	
-			$this->load->helper('form');
-			$this->load->library('email');
-			//$this->load->library('encrypt'); 
-			$this->load->helper(array('cookie', 'url'));
-			$this->load->model('admin/User_model');
-			$this->load->database();
-	  }
-	
-	public function index()
-	{
-		
-		$data['pageid']="login";
-		$this->load->view('admin/loginpage',$data); 
-		
-		
-	}
-	public function login() {
-        $username = $this->input->post('username');
-        $password = $this->input->post('password');
+/**
+ * Admin authentication controller with bcrypt password verification.
+ */
+class Auth extends MY_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('admin/User_model');
+    }
+
+    public function index()
+    {
+        if ($this->session->userdata('user_id')) {
+            redirect(base_url('admin'));
+            return;
+        }
+
+        $this->load->view('admin/loginpage', ['pageid' => 'login']);
+    }
+
+    public function login()
+    {
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('username', 'Email', 'required|trim|valid_email');
+        $this->form_validation->set_rules('password', 'Password', 'required|trim');
+
+        if ($this->form_validation->run() === FALSE) {
+            $this->json_error('Please enter a valid email and password.');
+            return;
+        }
+
+        $username = $this->post('username');
+        $password = $this->post('password');
 
         $user = $this->User_model->get_user($username, $password);
 
         if ($user) {
-			//$u_id=$user->id;
-			//echo $u_id;
+            $this->session->sess_regenerate(TRUE);
             $this->session->set_userdata('user_id', $user->id);
-            echo json_encode([
-                'status' => 'success',
-                'message' => 'Login successful!',
-                'redirect' => base_url('Administrator/Dashboard')
+
+            log_message('info', 'Admin login successful: ' . $username);
+
+            $this->json_success('Login successful!', [
+                'redirect' => base_url('admin'),
             ]);
         } else {
-            echo json_encode([
-                'status' => 'error',
-                'message' => 'Invalid email or password.'
-            ]);
+            log_message('warning', 'Failed admin login attempt: ' . $username);
+            $this->json_error('Invalid email or password.');
         }
+    }
+
+    public function logout()
+    {
+        $this->session->unset_userdata('user_id');
+        $this->session->sess_destroy();
+        redirect(base_url('admin/login'));
     }
 }
