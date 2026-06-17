@@ -10,15 +10,13 @@ I originally built this as part of the company's development team, and later ref
 
 ## Screenshots
 
-| Homepage | Booking Wizard |
+| Homepage | Booking Step 1 |
 |----------|---------------|
-| ![Homepage](screenshots/homepage.png) | ![Booking](screenshots/booking.png) |
+| ![Homepage](screenshots/Home-page.png) | ![Booking Step 1](screenshots/booking-window-01.png) |
 
-| Payment Step | Admin Dashboard |
-|-------------|-----------------|
-| ![Payment](screenshots/payment.png) | ![Admin](screenshots/admin.png) |
-
-> Take screenshots from [ikic.ca](https://ikic.ca), save them in the `screenshots/` folder with the names above.
+| Booking Step 2 | Booking Step 3 |
+|---------------|---------------|
+| ![Booking Step 2](screenshots/booking-window-02.png) | ![Booking Step 3](screenshots/booking-window-o2.png) |
 
 ---
 
