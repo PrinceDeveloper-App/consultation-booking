@@ -19,8 +19,8 @@
     <script src="<?php echo base_url() ?>resources/plugins/slick/slick.min.js"></script>
     <script src="<?php echo base_url() ?>resources/plugins/slick/slick-animation.min.js"></script>
 
-    <!-- Google Mapl -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
+    <!-- Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo env('GOOGLE_MAPS_API_KEY', ''); ?>"></script>
     <script type="text/javascript" src="<?php echo base_url() ?>resources/plugins/google-map/gmap.js"></script>
 
     <!-- Main Js File -->
@@ -33,3 +33,6 @@
 
     <!-- Time Picker Js -->
      <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+
+    <!-- CSRF Token for AJAX -->
+    <?php $this->load->view('scripts/csrfScript'); ?>
