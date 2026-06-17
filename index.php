@@ -38,22 +38,21 @@
 
 /*
  *---------------------------------------------------------------
+ * LOAD ENVIRONMENT VARIABLES
+ *---------------------------------------------------------------
+ */
+	require_once __DIR__ . '/application/helpers/env_helper.php';
+	load_env(__DIR__ . '/.env');
+
+/*
+ *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
  *---------------------------------------------------------------
  *
- * You can load different configurations depending on your
- * current environment. Setting the environment also influences
- * things like logging and error reporting.
- *
- * This can be set to anything, but default usage is:
- *
- *     development
- *     testing
- *     production
- *
- * NOTE: If you change these, also change the error_reporting() code below
+ * Reads from .env CI_ENV variable, falls back to 'development'.
+ * Set CI_ENV=production on your live server.
  */
-	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+	define('ENVIRONMENT', env('CI_ENV', 'development'));
 
 /*
  *---------------------------------------------------------------

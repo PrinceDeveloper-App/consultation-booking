@@ -1,0 +1,63 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * Loads environment variables from a .env file into $_ENV and $_SERVER.
+ *
+ * @param string $path Path to the .env file
+ */
+function load_env($path)
+{
+    if (!file_exists($path)) {
+        return;
+    }
+
+    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+    foreach ($lines as $line) {
+        $line = trim($line);
+
+        if ($line === '' || strpos($line, '#') === 0) {
+            continue;
+        }
+
+        $parts = explode('=', $line, 2);
+        if (count($parts) !== 2) {
+            continue;
+        }
+
+        $key   = trim($parts[0]);
+        $value = trim($parts[1]);
+
+        $value = trim($value, '"\'');
+
+        if (!array_key_exists($key, $_ENV)) {
+            $_ENV[$key] = $value;
+            $_SERVER[$key] = $value;
+            putenv("$key=$value");
+        }
+    }
+}
+
+/**
+ * Gets an environment variable with an optional default.
+ *
+ * @param string $key
+ * @param mixed  $default
+ * @return mixed
+ */
+function env($key, $default = null)
+{
+    $value = getenv($key);
+
+    if ($value === false) {
+        return $default;
+    }
+
+    $lower = strtolower($value);
+    if ($lower === 'true') return true;
+    if ($lower === 'false') return false;
+    if ($lower === 'null') return null;
+
+    return $value;
+}

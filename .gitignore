@@ -1,37 +1,48 @@
-.DS_Store
-
-stripe-php/
+# Environment & Secrets
 .env
+application/keys.php
 
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Dependencies
+/vendor/
+stripe-php/
+composer.lock
+
+# Application Cache & Logs
 application/cache/*
 !application/cache/index.html
-
-application/controllers/Copy.php
-
 application/logs/*
 !application/logs/index.html
 
-!application/*/.htaccess
+# Uploads (generated invoices)
+uploads/*
+!uploads/index.html
 
-composer.lock
+# CI Test Files
 tests/mocks/database/ci_test.sqlite
+/tests/tests/
+/tests/results/
 
+# User Guide Build
 user_guide_src/build/*
 user_guide_src/cilexer/build/*
 user_guide_src/cilexer/dist/*
 user_guide_src/cilexer/pycilexer.egg-info/*
-/vendor/
+
+# Screenshots (add real ones before pushing)
+# screenshots/
 
 # IDE Files
-#-------------------------
 /nbproject/
 .idea/*
+.vscode/*
+*.sublime-workspace
+*.sublime-project
 
-## Sublime Text cache files
+# Sublime Text Cache
 *.tmlanguage.cache
 *.tmPreferences.cache
 *.stTheme.cache
-*.sublime-workspace
-*.sublime-project
-/tests/tests/
-/tests/results/

@@ -75,11 +75,11 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => ' ikic_db',
-	'dbdriver' => 'mysqli',
+	'hostname' => env('DB_HOSTNAME', 'localhost'),
+	'username' => env('DB_USERNAME', 'root'),
+	'password' => env('DB_PASSWORD', ''),
+	'database' => env('DB_DATABASE', 'ikic_db'),
+	'dbdriver' => env('DB_DRIVER', 'mysqli'),
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
@@ -92,5 +92,5 @@ $db['default'] = array(
 	'compress' => FALSE,
 	'stricton' => FALSE,
 	'failover' => array(),
-	'save_queries' => TRUE
+	'save_queries' => (ENVIRONMENT !== 'production')
 );
